@@ -1,0 +1,20 @@
+# cluster
+127.0.0.1 k8s.edu.local
+
+# rancher
+127.0.0.1 rancher.k8s.edu.local
+
+# gitea
+127.0.0.1 gitea.k8s.edu.local
+127.0.0.1 git.k8s.edu.local 
+127.0.0.1 gitea.git.k8s.edu.local
+
+# keycloak
+127.0.0.1 keycloak.k8s.edu.local
+127.0.0.1 sso.k8s.edu.local 
+127.0.0.1 keycloak.sso.k8s.edu.local 
+
+# openldap
+127.0.0.1 ldap.k8s.edu.local 
+127.0.0.1 ltb.k8s.edu.local 
+127.0.0.1 phpldapadmin.k8s.edu.local

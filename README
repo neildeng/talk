@@ -1,0 +1,8 @@
+# First
+
+require:
+  - docker
+  - k3d/kind
+  - hostctl
+  - helm
+  - kubectl
