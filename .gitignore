@@ -1,3 +1,4 @@
+tls/gtestcert
 tls/*.pem
 tls/*.crt
 tls/*.cer

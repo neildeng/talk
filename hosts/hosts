@@ -1,6 +1,9 @@
 # cluster
 127.0.0.1 k8s.edu.local
 
+# hello world
+127.0.0.1 hello.k8s.edu.local
+
 # rancher
 127.0.0.1 rancher.k8s.edu.local
 
