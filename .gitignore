@@ -1,3 +1,4 @@
+.idea
 tls/gtestcert
 tls/*.pem
 tls/*.crt
