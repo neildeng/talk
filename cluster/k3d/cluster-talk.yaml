@@ -1,6 +1,7 @@
-apiVersion: k3d.io/v1alpha3
+apiVersion: k3d.io/v1alpha4
 kind: Simple
-name: talk
+metadata:
+  name: talk
 servers: 1
 agents: 2
 ports:
