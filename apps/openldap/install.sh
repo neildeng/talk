@@ -14,6 +14,16 @@ helm upgrade --install openldap-stack-ha \
   --values - <<EOF
 adminPassword: 1qaz@WSX
 configPassword: 4rfv5tgb6yhn4567rtyufghjvbnm
+customFileSets:
+  - name: fileset1
+    targetPath: /container/service/slapd/assets/config/bootstrap/ldif
+    files:
+    - filename: 03-memberOf.ldif
+      content: |
+        dn: cn=module{0},cn=config
+        changetype: modify
+        add: olcModuleLoad
+        olcModuleLoad: memberof
 customLdifFiles:
   initial-ous.ldif: |-
     version: 1
@@ -32,6 +42,9 @@ customLdifFiles:
     dn: cn=common,ou=Groups,dc=k8s,dc=edu,dc=local
     cn: common
     gidnumber: 500
+    memberuid: neildeng
+    memberuid: amigo
+    memberuid: wings
     objectclass: posixGroup
     objectclass: top
 
@@ -39,12 +52,15 @@ customLdifFiles:
     dn: cn=dev,ou=Groups,dc=k8s,dc=edu,dc=local
     cn: dev
     gidnumber: 501
+    memberuid: amigo
+    memberuid: wings
     objectclass: posixGroup
     objectclass: top
 
     #
     dn: cn=ops,ou=Groups,dc=k8s,dc=edu,dc=local
     cn: ops
+    memberuid: neildeng
     gidnumber: 502
     objectclass: posixGroup
     objectclass: top
@@ -104,6 +120,8 @@ ltb-passwd:
   enabled : false
   ingress:
     enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
     hosts:
     - "ltb.k8s.edu.local"
   ldap:
@@ -115,6 +133,8 @@ phpldapadmin:
   enabled: true
   ingress:
     enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
     hosts:
       - phpldapadmin.k8s.edu.local
     tls:

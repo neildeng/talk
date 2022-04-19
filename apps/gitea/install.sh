@@ -3,26 +3,28 @@ set -e
 
 cd "$(dirname "$0")"
 
-# helm repo add gitea-charts https://dl.gitea.io/charts/
-# helm repo update
+OIDC_SECRET="Q2fM8nIBK0K6z9bwagXzHKDJ4KxfSM4C"
 
 kubectl create ns git || true
-kubectl -n git create configmap testgrca4 --from-file=testgrca4.crt=./../../tls/testGRCA4.crt 
-kubectl -n git create secret tls git-tld-secret --cert=./../../tls/git.k8s.edu.local+2.pem --key=./../../tls/git.k8s.edu.local+2-key.pem
+kubectl -n git create configmap mkcertrootca --from-file=mkcert-root-ca.pem="$(mkcert --CAROOT)/rootCA.pem" || true
+kubectl -n git create secret tls gitea-tls --cert=./../../tls/git.k8s.edu.local+2.pem --key=./../../tls/git.k8s.edu.local+2-key.pem || true
+kubectl -n git create secret generic openid-connect-secret --from-literal=key=gitea --from-literal=secret=$OIDC_SECRET || true
 
-helm install gitea \
+helm upgrade --install gitea \
   --repo=https://dl.gitea.io/charts/ gitea \
   --namespace git --create-namespace \
   --values - <<EOF
 ingress:
   enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
   hosts:
     - host: git.k8s.edu.local
       paths:
         - path: /
           pathType: Prefix
   tls:
-    - secretName: git-tld-secret
+    - secretName: gitea-tls
       hosts:
         - git.k8s.edu.local
 gitea:
@@ -30,16 +32,24 @@ gitea:
     username: giteaadmin
     password: 1qaz@WSX
     email: "gitea@k8s.edu.local"
+  config:
+    server:
+      DOMAIN: git.k8s.edu.local
+  oauth:
+  - name: 'kecloak2'
+    provider: 'openidConnect'
+    existingSecret: openid-connect-secret
+    autoDiscoverUrl: 'https://keycloak.k8s.edu.local/auth/realms/master/.well-known/openid-configuration'
 extraVolumes:
   - configMap:
       defaultMode: 420
-      name: testgrca4
-    name: testgrca4
+      name: mkcertrootca
+    name: mkcertrootca
 extraVolumeMounts:
-  - mountPath: /etc/ssl/certs/ca-certificates.crt
-    name: testgrca4
+  - mountPath: /etc/ssl/certs/mkcert-root-ca.pem
+    name: mkcertrootca
     readOnly: true
-    subPath: testgrca4.crt
+    subPath: mkcert-root-ca.pem
 ---
 EOF
 

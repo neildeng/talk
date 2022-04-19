@@ -5,8 +5,8 @@ cd "$(dirname "$0")"
 
 kubectl create ns keycloak || true
 
-kubectl -n keycloak create configmap testgrca4 --from-file=testgrca4.crt=./../../tls/testGRCA4.crt 
-kubectl -n keycloak create secret tls keycloak-tld-secret --cert=./../../tls/sso.k8s.edu.local+2.pem --key=./../../tls/sso.k8s.edu.local+2-key.pem
+kubectl -n keycloak create configmap mkcertrootca --from-file=mkcert-root-ca.pem="$(mkcert --CAROOT)/rootCA.pem" || true
+kubectl -n keycloak create secret tls keycloak-tld-secret --cert=./../../tls/sso.k8s.edu.local+2.pem --key=./../../tls/sso.k8s.edu.local+2-key.pem || true
 
 helm upgrade --install keycloak \
   --repo=https://codecentric.github.io/helm-charts keycloak \
@@ -25,16 +25,18 @@ extraEnv: |
 extraVolumes: |
   - configMap:
       defaultMode: 420
-      name: testgrca4
-    name: testgrca4
+      name: mkcertrootca
+    name: mkcertrootca
 extraVolumeMounts: |
-  - mountPath: /etc/ssl/certs/ca-certificates.crt
-    name: testgrca4
+  - mountPath: /etc/ssl/certs/mkcert-root-ca.pem
+    name: mkcertrootca
     readOnly: true
-    subPath: testgrca4.crt
+    subPath: mkcert-root-ca.pem
 
 ingress:
   enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
   rules:
     - host: 'keycloak.k8s.edu.local'
       paths:
@@ -47,6 +49,8 @@ ingress:
   console:
     enabled: true
     ingressClassName: ""
+    annotations:
+      kubernetes.io/ingress.class: nginx
     rules:
       - host: 'keycloak.k8s.edu.local'
         paths:
