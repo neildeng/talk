@@ -32,3 +32,9 @@ hostAliases:
       - gitea.k8s.edu.local
       - rancher.k8s.edu.local
       - k8s.edu.local
+options:
+  k3s:
+    extraArgs:
+      - arg: --no-deploy=traefik
+        nodeFilters:
+          - server:*
