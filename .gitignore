@@ -1,5 +1,5 @@
 .idea
-tls/gtestcert
+tls/gtestca
 tls/*.pem
 tls/*.crt
 tls/*.cer
