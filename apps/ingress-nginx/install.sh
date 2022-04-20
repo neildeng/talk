@@ -10,5 +10,7 @@ helm upgrade --install ingress-nginx \
   --namespace ingress-nginx --create-namespace \
   --version "4.0.19" \
   --values - <<EOF
+defaultBackend:
+  enabled: true
 ---
 EOF
