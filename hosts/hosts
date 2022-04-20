@@ -21,3 +21,7 @@
 127.0.0.1 ldap.k8s.edu.local 
 127.0.0.1 ltb.k8s.edu.local 
 127.0.0.1 phpldapadmin.k8s.edu.local
+
+# harbor
+127.0.0.1 harbor.k8s.edu.local
+127.0.0.1 notary.k8s.edu.local
