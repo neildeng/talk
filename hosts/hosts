@@ -25,3 +25,7 @@
 # harbor
 127.0.0.1 harbor.k8s.edu.local
 127.0.0.1 notary.k8s.edu.local
+
+# harbor
+127.0.0.1 argo.k8s.edu.local
+127.0.0.1 argocd.k8s.edu.local

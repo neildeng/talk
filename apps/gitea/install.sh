@@ -3,7 +3,7 @@ set -e
 
 cd "$(dirname "$0")"
 
-OIDC_SECRET="Q2fM8nIBK0K6z9bwagXzHKDJ4KxfSM4C"
+OIDC_SECRET="HRRuvNsf2bRRIxo6RpQODQ0E1qf9bJkU"
 
 kubectl create ns git || true
 kubectl -n git create configmap mkcertrootca --from-file=mkcert-root-ca.pem="$(mkcert --CAROOT)/rootCA.pem" || true
@@ -36,7 +36,7 @@ gitea:
     server:
       DOMAIN: git.k8s.edu.local
   oauth:
-  - name: 'kecloak2'
+  - name: 'keycloak'
     provider: 'openidConnect'
     existingSecret: openid-connect-secret
     autoDiscoverUrl: 'https://keycloak.k8s.edu.local/auth/realms/master/.well-known/openid-configuration'

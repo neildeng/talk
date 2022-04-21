@@ -39,6 +39,22 @@ customLdifFiles:
     ou: Groups
 
     #
+    dn: cn=admin,ou=Groups,dc=k8s,dc=edu,dc=local
+    cn: admin
+    gidnumber: 504
+    memberuid: neildeng
+    objectclass: posixGroup
+    objectclass: top
+
+    #
+    dn: cn=ArgoCDAdmins,ou=Groups,dc=k8s,dc=edu,dc=local
+    cn: ArgoCDAdmins
+    gidnumber: 503
+    memberuid: neildeng
+    objectclass: posixGroup
+    objectclass: top
+
+    #
     dn: cn=common,ou=Groups,dc=k8s,dc=edu,dc=local
     cn: common
     gidnumber: 500
