@@ -8,6 +8,8 @@ containerdConfigPatches:
       endpoint = ["http://kind-registry:5000"]
 networking:
   disableDefaultCNI: true # do not install kindnet
+  podSubnet: "10.10.0.0/16"
+  serviceSubnet: "10.11.0.0/16"
 nodes:
   - role: control-plane
     kubeadmConfigPatches:
@@ -22,6 +24,15 @@ nodes:
         protocol: TCP
       - containerPort: 443
         hostPort: 443
+        protocol: TCP
+      - containerPort: 32100
+        hostPort: 32100
+        protocol: TCP
+      - containerPort: 32200
+        hostPort: 32200
+        protocol: TCP
+      - containerPort: 32300
+        hostPort: 32300
         protocol: TCP
   - role: worker
   - role: worker

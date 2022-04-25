@@ -11,6 +11,12 @@ ports:
   - port: 443:443
     nodeFilters:
       - loadbalancer
+  - port: 32100:32100
+      nodeFilters:
+      - loadbalancer
+  - port: 32200:32200
+    nodeFilters:
+      - loadbalancer
 registries:
   create:
     name: registry.localhost
@@ -35,6 +41,6 @@ hostAliases:
 options:
   k3s:
     extraArgs:
-      - arg: --no-deploy=traefik
+      - arg: --no-deploy=traefik --flannel-backend=none --disable-network-policy
         nodeFilters:
           - server:*
