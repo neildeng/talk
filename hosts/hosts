@@ -29,3 +29,6 @@
 # harbor
 127.0.0.1 argo.k8s.edu.local
 127.0.0.1 argocd.k8s.edu.local
+
+# polaris
+127.0.0.1 polaris.k8s.edu.local
