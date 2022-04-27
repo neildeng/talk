@@ -33,8 +33,6 @@ hostAliases:
       - phpldapadmin.k8s.edu.local
       - ltb.k8s.edu.local
       - ldap.k8s.edu.local
-      - keycloak.sso.k8s.edu.local
-      - sso.k8s.edu.local
       - keycloak.k8s.edu.local
       - gitea.git.k8s.edu.local
       - git.k8s.edu.local
