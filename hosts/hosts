@@ -36,3 +36,6 @@
 # PLG
 127.0.0.1 prometheus.k8s.edu.local
 127.0.0.1 grafana.k8s.edu.local
+
+# Kubernetes Dashboard
+127.0.0.1 dashboard.k8s.edu.local
