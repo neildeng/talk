@@ -39,3 +39,7 @@
 
 # Kubernetes Dashboard
 127.0.0.1 dashboard.k8s.edu.local
+
+# drone
+127.0.0.1 drone.k8s.edu.local
+127.0.0.1 drone-runner.k8s.edu.local

@@ -1,9 +1,14 @@
 #!/bin/bash +x
 set -e
 
-cd "$(dirname "$0")"
+OIDC_SECRET=$1
 
-OIDC_SECRET="HRRuvNsf2bRRIxo6RpQODQ0E1qf9bJkU"
+if [[ -z "$OIDC_SECRET" ]]; then
+   echo "錯誤未指定 OIDC_SECRET"
+   exit 1
+fi
+
+cd "$(dirname "$0")"
 
 kubectl create ns git || true
 kubectl -n git create configmap mkcertrootca --from-file=mkcert-root-ca.pem="$(mkcert --CAROOT)/rootCA.pem" || true
@@ -33,8 +38,12 @@ gitea:
     password: 1qaz@WSX
     email: "gitea@k8s.edu.local"
   config:
+    APP_NAME: "K8s Edu Local"
     server:
       DOMAIN: git.k8s.edu.local
+      ROOT_URL: https://git.k8s.edu.local/
+    webhook:
+      ALLOWED_HOST_LIST: "*"
   oauth:
   - name: 'keycloak'
     provider: 'openidConnect'

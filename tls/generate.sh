@@ -16,3 +16,4 @@ mkcert harbor.k8s.edu.local core.harbor.k8s.edu.local notary.harbor.k8s.edu.loca
 mkcert polaris.k8s.edu.local
 mkcert grafana.k8s.edu.local grafana.k8s.edu.local
 mkcert dashboard.k8s.edu.local
+mkcert drone.k8s.edu.local drone-runner.k8s.edu.local
