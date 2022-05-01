@@ -3,3 +3,4 @@ tls/gtestca
 tls/*.pem
 tls/*.crt
 tls/*.cer
+tls/internalCA/*.pem
