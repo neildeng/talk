@@ -1,0 +1,13 @@
+kind: pipeline
+type: kubernetes
+name: default
+
+clone:
+  skip_verify: true
+
+steps:
+  - name: greeting
+    image: alpine
+    commands:
+      - echo hello
+      - echo world
