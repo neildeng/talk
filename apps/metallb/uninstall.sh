@@ -2,7 +2,7 @@
 
 # "---------------------------------------------------------"
 # "-                                                       -"
-# "-  Add k8s.edu records                                  -"
+# "-  Uninstall metallb                                   -"
 # "-                                                       -"
 # "---------------------------------------------------------"
 
@@ -13,4 +13,7 @@ set -o nounset
 WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$WORKDIR"
 
-sudo hostctl add talk --from ./hosts 
+kubectl delete -f https://kind.sigs.k8s.io/examples/loadbalancer/usage.yaml
+kubectl delete -f metallb-configmap.yaml
+kubectl delete -f https://raw.githubusercontent.com/metallb/metallb/v0.12.1/manifests/metallb.yaml
+kubectl delete -f https://raw.githubusercontent.com/metallb/metallb/v0.12.1/manifests/namespace.yaml

@@ -1,5 +1,17 @@
-#!/bin/bash +x
-set -e
+#!/usr/bin/env bash
+
+# "---------------------------------------------------------"
+# "-                                                       -"
+# "-  Uninstall gitea                                      -"
+# "-                                                       -"
+# "---------------------------------------------------------"
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$WORKDIR"
 
 helm uninstall gitea --namespace git || true
 

@@ -3,5 +3,6 @@ set -e
 
 cd "$(dirname "$0")"
 
-kubectl delete secret hello-tls
-kubectl delete -f ./
+kubectl delete Certificate hello-cert || true
+kubectl delete secret hello-tls || true
+kubectl delete -f ./ || true

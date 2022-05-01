@@ -1,5 +1,14 @@
-#!/bin/bash +x
-set -e
+#!/usr/bin/env bash
+
+# "---------------------------------------------------------"
+# "-                                                       -"
+# "-  Uninstall Argo CD                                    -"
+# "-                                                       -"
+# "---------------------------------------------------------"
+
+set -o errexit
+set -o pipefail
+set -o nounset
 
 helm uninstall argo-cd --namespace argo-cd || true
 

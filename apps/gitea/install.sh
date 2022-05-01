@@ -1,5 +1,14 @@
-#!/bin/bash +x
-set -e
+#!/usr/bin/env bash
+
+# "---------------------------------------------------------"
+# "-                                                       -"
+# "-  Release gitea                                        -"
+# "-                                                       -"
+# "---------------------------------------------------------"
+
+set -o errexit
+set -o pipefail
+set -o nounset
 
 OIDC_SECRET=$1
 
@@ -8,7 +17,8 @@ if [[ -z "$OIDC_SECRET" ]]; then
    exit 1
 fi
 
-cd "$(dirname "$0")"
+WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$WORKDIR"
 
 kubectl create ns git || true
 kubectl -n git create configmap mkcertrootca --from-file=mkcert-root-ca.pem="$(mkcert --CAROOT)/rootCA.pem" || true
