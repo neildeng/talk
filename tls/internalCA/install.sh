@@ -21,7 +21,7 @@ kubectl create secret tls ca-key-pair \
    --namespace=cert-manager
 
 kubectl apply -f - <<EOF
-apiVersion: cert-manager.io/v1alpha2
+apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: ca-issuer
