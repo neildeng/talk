@@ -1,0 +1,30 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: check-label-app
+spec:
+  validationFailureAction: enforce
+  rules:
+    - name: check-label-app
+      match:
+        any:
+          - resources:
+              kinds:
+                - Deployment
+                - StatefulSet
+                - DaemonSet
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                - kube-system
+                - ingress-nginx
+                - kubernetes-dashboard
+      validate:
+        message: "The label `app` is required."
+        pattern:
+          spec:
+            template:
+              metadata:
+                labels:
+                  app: "?*"

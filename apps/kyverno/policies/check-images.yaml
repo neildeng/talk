@@ -1,0 +1,28 @@
+apiVersion : kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: check-images
+spec:
+  validationFailureAction: enforce
+  background: false
+  rules:
+    - name: check-registry
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      preconditions:
+        any:
+          - key: "{{request.operation}}"
+            operator: NotEquals
+            value: DELETE
+      validate:
+        message: "unknown registry"
+        foreach:
+          - list: "request.object.spec.initContainers"
+            pattern:
+              image: "harbor.k8s.edu.local/*"
+          - list: "request.object.spec.containers"
+            pattern:
+              image: "harbor.k8s.edu.local/*"
