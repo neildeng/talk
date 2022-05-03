@@ -8,6 +8,9 @@
   - First App：Hello World
   - Ingress and TLS
 
+- Kubernetes 102 - https://hackmd.io/@neildeng/HJE0W0VSc#/
+  - The difference between Pod and Deployment
+
 - Kubernetes 201 - WIP
   - PLG
      
