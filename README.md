@@ -25,8 +25,9 @@
   - Phlare
   - Grafana Dashboard
 
-- Kubernetes Talk 204 - [coming soon]
-  - Blackbox
+- Kubernetes Talk 204 - https://hackmd.io/@neildeng/Byz61Q1kh#/
+  - Blackbox: ssl, http, tcp
+  - Grafana Dashboard
 
 - Kubernetes Talk 205 - [coming soon]
   - K6

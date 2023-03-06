@@ -1,0 +1,38 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    release: lgtm-aio
+  name: blackbox-exporter-https-exporter-bing
+  namespace: observability
+spec:
+  endpoints:
+  - interval: 30s
+    metricRelabelings:
+    - action: replace
+      replacement: https://bing.com
+      sourceLabels:
+      - instance
+      targetLabel: instance
+    - action: replace
+      replacement: https-exporter-bing
+      sourceLabels:
+      - target
+      targetLabel: target
+    params:
+      module:
+      - http_2xx
+      target:
+      - https://bing.com
+    path: /probe
+    port: http
+    scheme: http
+    scrapeTimeout: 30s
+  jobLabel: blackbox-exporter
+  namespaceSelector:
+    matchNames:
+    - observability
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: blackbox-exporter
+      app.kubernetes.io/name: prometheus-blackbox-exporter
